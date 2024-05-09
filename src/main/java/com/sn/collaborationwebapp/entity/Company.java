@@ -31,7 +31,7 @@ public class Company {
     private String companyImage;
 
     @NotEmpty
-    @Column(nullable = false, length = 100)
+    @Column(unique = true, nullable = false, length = 100)
     private String companyName;
 
     @NotEmpty
@@ -54,6 +54,9 @@ public class Company {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")

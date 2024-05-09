@@ -11,10 +11,9 @@ public interface CompanyService {
     CompanyDto createCompany(CompanyDto companyDto);
     List<Company> getAllCompanies();
     CompanyDto getCompanyById(Long id);
-    CompanyDto updateCompany(CompanyDto companyDto, Long id);
-    Optional<CompanyDto> getCompanyByName(String name);
+    CompanyDto updateCompanyById(CompanyDto companyDto, Long id);
+    Optional<CompanyDto> getCompanyByName(String companyName);
     void deleteCompany(Long id);
     void deleteCompanyByName(String name);
-    void validateCompany(CompanyDto companyDto);
-    List<CompanyDto> serchCompanyByFirstLetter(String name);
+    List<Company> serchCompanyByFirstLetter(String letter);
 }
