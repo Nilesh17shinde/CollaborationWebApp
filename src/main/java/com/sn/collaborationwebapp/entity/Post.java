@@ -22,6 +22,10 @@ public class Post {
     @Size(min = 1, max = 255)
     private String postDescription;
 
+    @NotNull
+    @Size(min = 1, max = 255)
+    private String postTitle;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date postDate;
 
