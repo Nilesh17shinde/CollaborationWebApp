@@ -18,8 +18,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> createAdmin(@Valid @RequestBody Admin admin) {
+        System.out.println("Received Content-Type: application/json");
         Admin savedAdmin = adminService.createAdmin(admin);
         return new ResponseEntity<>(new ApiResponse("Admin created successfully", true), HttpStatus.CREATED);
     }

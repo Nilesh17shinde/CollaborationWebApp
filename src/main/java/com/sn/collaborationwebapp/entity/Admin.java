@@ -18,11 +18,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @NotEmpty
     @Email
     private String email;
@@ -33,13 +34,13 @@ public class Admin {
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /*@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Company> companies = new HashSet<>();
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Post> posts = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();*/
 
     public void hashPassword() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

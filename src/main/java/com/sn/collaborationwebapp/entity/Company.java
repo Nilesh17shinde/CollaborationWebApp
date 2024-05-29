@@ -1,21 +1,19 @@
 package com.sn.collaborationwebapp.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,7 +35,7 @@ public class Company {
     @NotEmpty
     private String companyDomain;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Email(message = "Invalid email address.")
     @NotEmpty
     private String companyEmail;
@@ -58,17 +56,14 @@ public class Company {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    @JsonBackReference
-    private Admin admin;
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Post> posts = new HashSet<>();
+    private List<Post> posts = new ArrayList<>();
 
     public void hashPassword() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.companyPassword = passwordEncoder.encode(this.companyPassword);
+        if (!this.companyPassword.startsWith("$2a$")) { // Check if password is already encoded
+            this.companyPassword = passwordEncoder.encode(this.companyPassword);
+        }
     }
 }
