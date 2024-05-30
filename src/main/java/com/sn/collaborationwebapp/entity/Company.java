@@ -1,5 +1,6 @@
 package com.sn.collaborationwebapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -60,6 +61,10 @@ public class Company {
     @JsonManagedReference
     private List<Post> posts = new ArrayList<>();
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
     public void hashPassword() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!this.companyPassword.startsWith("$2a$")) { // Check if password is already encoded

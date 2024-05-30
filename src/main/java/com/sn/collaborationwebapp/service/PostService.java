@@ -10,4 +10,7 @@ public interface PostService {
     Post getPostById(Long id);
     Post updatePost(Post post, Long id);
     void deletePost(Long id);
+    Post findByPostTitle(String title);
+    List<Post> findByPostStatus(String status);
+    List<Post> findByPostTitleStartingWith(String letter);
 }

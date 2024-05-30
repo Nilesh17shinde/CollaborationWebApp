@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -48,5 +49,21 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long id) {
         Post existingPost = postRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
         postRepo.delete(existingPost);
+    }
+
+    @Override
+    public Post findByPostTitle(String title) {
+        Optional<Post> post = postRepo.findByPostTitle(title);
+        return post.orElseThrow(() -> new ResourceNotFoundException("Post", "title", title));
+    }
+
+    @Override
+    public List<Post> findByPostStatus(String status) {
+        return postRepo.findByPostStatus(status);
+    }
+
+    @Override
+    public List<Post> findByPostTitleStartingWith(String letter) {
+        return postRepo.findByPostTitleStartingWith(letter);
     }
 }

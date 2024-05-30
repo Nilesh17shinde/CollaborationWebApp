@@ -9,9 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -34,13 +32,10 @@ public class Admin {
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
 
-    /*@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Company> companies = new HashSet<>();
+    private List<Company> companies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Post> posts = new HashSet<>();*/
 
     public void hashPassword() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

@@ -46,4 +46,23 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.ok("Post with Id " + id + " deleted successfully");
     }
+
+    @GetMapping("/PostTitle/{title}")
+    public ResponseEntity<Post> getPostByTitle(@PathVariable String title) {
+        Post post = postService.findByPostTitle(title);
+        return new ResponseEntity<>(post, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPostByStatus/{status}")
+    public ResponseEntity<List<Post>> getPostByStatus(@PathVariable String status) {
+        List<Post> posts = postService.findByPostStatus(status);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPostByTitleStartingWith/{letter}")
+    public ResponseEntity<List<Post>> getPostByTitleStartingWith(@PathVariable String letter) {
+        List<Post> posts = postService.findByPostTitleStartingWith(letter);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
 }
