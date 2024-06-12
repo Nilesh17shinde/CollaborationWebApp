@@ -2,10 +2,7 @@ package com.sn.collaborationwebapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -52,9 +49,17 @@ public class Post {
     @NotNull
     private String postType;
 
+    @NotEmpty
+    @Email
+    private String email;
+
+    @Size(min = 10, max = 15, message = "Mobile number must be between 10 and 15 characters.")
+    @NotEmpty
+    private String mobileNumber;
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "company_id")
     private Company company;
+
 
 }

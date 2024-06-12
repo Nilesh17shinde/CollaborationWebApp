@@ -1,8 +1,10 @@
 package com.sn.collaborationwebapp.controller;
 
 import com.sn.collaborationwebapp.entity.Company;
+import com.sn.collaborationwebapp.entity.Post;
 import com.sn.collaborationwebapp.entitydto.CompanyDto;
 import com.sn.collaborationwebapp.service.CompanyService;
+import com.sn.collaborationwebapp.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private PostService postService;
 
     @PostMapping("/add")
     public ResponseEntity<CompanyDto>createCompany(@Valid @RequestBody CompanyDto companyDto ){
@@ -69,4 +73,10 @@ public class CompanyController {
         }
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
+//    Post Access
+    @GetMapping("/getPostByStatus/{status}")
+    public ResponseEntity<List<Post>> getPostByStatus(@PathVariable String status) {
+    List<Post> posts = postService.findByPostStatus(status);
+    return new ResponseEntity<>(posts, HttpStatus.OK);
+}
 }
